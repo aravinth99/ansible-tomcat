@@ -10,7 +10,12 @@
     apt:
       update_cache: yes
       cache_valid_time: 86400 #One day
-
+      
+  - name: install JDK 11
+    apt:
+      name: openjdk-11-jre-headless
+      state: present
+      
   - name: add tomcat group
     group:
       name: tomcat
@@ -43,6 +48,13 @@
       mode: "u+rwx,g+rx,o=rx"
       recurse: yes
       state: directory
+      
+  - name: Copy Tomcat service from local to remote
+    copy:
+       src: tomcat.service
+       dest: /etc/systemd/system/
+       mode: 0755
+
 
   - name: Start and enable Tomcat service
     systemd:
