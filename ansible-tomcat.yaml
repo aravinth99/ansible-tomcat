@@ -41,4 +41,6 @@
       command: systemctl daemon-reload
  
     - name: Starting Apache Tomcat service.
-      service: name=tomcat state=started
+      args:
+        chdir: /opt/tomcat/bin
+        command: sudo ./catalina.sh run
