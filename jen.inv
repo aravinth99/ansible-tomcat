@@ -1,2 +1,2 @@
-[vm-jenkins]
-192.168.56.104 ansible_user=jenkins
+[k8s-cluster]
+192.168.56.101 ansible_user=vmubuntu
