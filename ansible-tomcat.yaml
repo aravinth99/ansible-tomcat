@@ -42,4 +42,4 @@
  
     - name: Starting Apache Tomcat service.
       command: /opt/tomcat/bin
-      command: sudo ./catalina.sh run
+      command: systemctl start tomcat
