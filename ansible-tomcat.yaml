@@ -8,38 +8,3 @@
       apt: update_cache=yes   
       ignore_errors: yes 
       
-    - name: Installating curl.
-      apt: name=curl state=latest
-      
-    - name: Downloading Apache Tomcat tar.
-      shell: wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.65/bin/apache-tomcat-9.0.65-deployer.tar.gz     
-      args:
-        chdir: /tmp
-    - name: Creating Apache Tomcat home directory.
-      command: mkdir /opt/tomcat
-      
-    - name: Extracting Apache Tomcat.
-      shell: tar -xzvf /tmp/apache-tomcat-9.0.65-deployer.tar.gz -C /opt/tomcat --strip-components=1
-      
-    - name: Updating permission.
-      command: "{{ item }}"
-      with_items:
-        - chown -R tomcat:tomcat /opt/tomcat
-     
-    - name: Creating service for Apache tomcat.
-      file:
-        path: /etc/systemd/system/tomcat.service
-        state: touch
-        mode: u+rwx,g-rwx,o-x
-
-    - name: download foo.conf
-      get_url:
-        url: https://raw.githubusercontent.com/aftab70/Apache_Tomcat/master/tomcat_services
-        dest: /etc/systemd/system/tomcat.service
- 
-    - name: Deamon reload.
-      command: systemctl daemon-reload
- 
-    - name: Starting Apache Tomcat service.
-      command: /opt/tomcat/bin
-      command: systemctl start tomcat
